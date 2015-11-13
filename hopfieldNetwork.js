@@ -72,7 +72,7 @@ function nuevaEntrada(vectorEntrada){
         for(var j = 0; j < n; j++){
             if(i != j){
                 var elementVectorEntrada = vectorEntrada[j];
-                console.log("S("+i+','+j+") "+Weight[i][j]);
+                //console.log("S("+i+','+j+") "+Weight[i][j]);
                 //console.log("e * w",i,j);
                 suma += Weight[i][j] * elementVectorEntrada;
             }
@@ -90,6 +90,7 @@ function nuevaEntrada(vectorEntrada){
             //nuevoVector.push(elementVectorEntrada);
         }
     }
+    console.log("anterior vector",vectorEntrada);
     console.log("nuevo vector",nuevoVector);
     return nuevoVector;
 }
@@ -128,11 +129,10 @@ function esUnVectorDeAprendizaje(vectorEntrada){
 }
 
 function equals(vectorA,vectorB){
-    if(!vectorA || !vectorB ){
-        return false;
-    }
     var p = 0;
+
     while(vectorA[p] == vectorB[p] && p < vectorA.length){
+        //console.log(vectorA[p],vectorB[p]);
         p++;
     }
     //Si todos los elementos son iguales al vector de aprendizaje
@@ -147,7 +147,8 @@ function check(vectorEntrada){
 
     var nuevoVector = nuevaEntrada(anterior);
     if(equals(anterior,nuevoVector)){
-        console.log(nuevoVector);
+        //console.log(nuevoVector);
+        esUnVectorDeAprendizaje(nuevoVector);
         console.log("Termino");
     }else{
         nuevoVector = nuevaEntrada(anterior);
@@ -155,12 +156,16 @@ function check(vectorEntrada){
     }
 }
 
-//check([-1,-1, 1,1,1,1]);
+check([-1,-1, 1,1,1,1]);
 //check([-1,1,-1,1,-1,1]);
-check([1,-1,1,-1,1,-1]);
+//check([1,-1,1,-1,1,-1]);
 //check([-1,1,-1,-1,-1,1]);
 //check([1,1,1,-1,-1,-1]);
 //nuevaEntrada([-1,1,-1,1,-1,1]);
 //nuevaEntrada([ 1, -1, 1, -1, 1, -1 ]);
 
-//nuevaEntrada([ -1, -1, 1, 1, 1, 1 ]);
+//nuevaEntrada([1,-1,1,-1,1,-1]);
+//console.log("INVERSO");
+//nuevaEntrada([ -1, 1, -1, 1, -1, 1 ]);
+
+
