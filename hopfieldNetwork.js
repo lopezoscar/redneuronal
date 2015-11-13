@@ -70,21 +70,27 @@ function nuevaEntrada(vectorEntrada){
     for(var i = 0; i < vectorEntrada.length; i++){
         var suma = 0;
         for(var j = 0; j < n; j++){
-            var elementVectorEntrada = vectorEntrada[j];
-            //console.log("e * w",i,j);
-            suma += Weight[i][j] * elementVectorEntrada;
+            if(i != j){
+                var elementVectorEntrada = vectorEntrada[j];
+                console.log("S("+i+','+j+") "+Weight[i][j]);
+                //console.log("e * w",i,j);
+                suma += Weight[i][j] * elementVectorEntrada;
+            }
         }
         //console.log(suma);
         if(suma > 0){
+            nuevoVector[i] = 1;
             //return 1;
-            nuevoVector.push(1);//TODO Cambiar para que ande en otro lenguaje.
+            //nuevoVector.push(1);//TODO Cambiar para que ande en otro lenguaje.
         }else if(suma < 0){
-            nuevoVector.push(-1);
+            nuevoVector[i] = -1;
+            //nuevoVector.push(-1);
         }else{
-            nuevoVector.push(elementVectorEntrada);
+            nuevoVector[i] = vectorEntrada[i];
+            //nuevoVector.push(elementVectorEntrada);
         }
     }
-    console.log(nuevoVector);
+    console.log("nuevo vector",nuevoVector);
     return nuevoVector;
 }
 
@@ -121,21 +127,40 @@ function esUnVectorDeAprendizaje(vectorEntrada){
     return false;
 }
 
+function equals(vectorA,vectorB){
+    if(!vectorA || !vectorB ){
+        return false;
+    }
+    var p = 0;
+    while(vectorA[p] == vectorB[p] && p < vectorA.length){
+        p++;
+    }
+    //Si todos los elementos son iguales al vector de aprendizaje
+    if(p == n){
+        return true;
+    }
+    return false;
+}
+
 function check(vectorEntrada){
-    var nuevoVector = vectorEntrada;
-    while(!esUnVectorDeAprendizaje(nuevoVector)){
-        nuevoVector = nuevaEntrada(nuevoVector);
+    var anterior = vectorEntrada;
+
+    var nuevoVector = nuevaEntrada(anterior);
+    if(equals(anterior,nuevoVector)){
+        console.log(nuevoVector);
+        console.log("Termino");
+    }else{
+        nuevoVector = nuevaEntrada(anterior);
+        check(nuevoVector);
     }
 }
 
-check([-1,-1, 1,1,1,1]);
+//check([-1,-1, 1,1,1,1]);
 //check([-1,1,-1,1,-1,1]);
-check([1,1,1,-1,-1,-1]);
+check([1,-1,1,-1,1,-1]);
+//check([-1,1,-1,-1,-1,1]);
+//check([1,1,1,-1,-1,-1]);
 //nuevaEntrada([-1,1,-1,1,-1,1]);
 //nuevaEntrada([ 1, -1, 1, -1, 1, -1 ]);
 
 //nuevaEntrada([ -1, -1, 1, 1, 1, 1 ]);
-
-
-//var w = pesoEnPosicion(1,2);
-//console.log("w",w);
