@@ -70,12 +70,10 @@ function nuevaEntrada(vectorEntrada){
     for(var i = 0; i < vectorEntrada.length; i++){
         var suma = 0;
         for(var j = 0; j < n; j++){
-            if(i != j){
                 var elementVectorEntrada = vectorEntrada[j];
                 //console.log("S("+i+','+j+") "+Weight[i][j]);
                 //console.log("e * w",i,j);
                 suma += Weight[i][j] * elementVectorEntrada;
-            }
         }
         //console.log(suma);
         if(suma > 0){
@@ -156,7 +154,7 @@ function check(vectorEntrada){
     }
 }
 
-check([-1,-1, 1,1,1,1]);
+//check([-1,-1, 1,1,1,1]);
 //check([-1,1,-1,1,-1,1]);
 //check([1,-1,1,-1,1,-1]);
 //check([-1,1,-1,-1,-1,1]);
