@@ -10,133 +10,39 @@
             table{background:#FFF;border:1px solid #000;}
             table td{padding:15px;border:1px solid #DDD;}
             .on { background: pink}
+            .buttons{
+                margin-top:20px;
+            }
         </style>
     </head>
     <body>
 
-
+    <div class="container">
         <div class="col-lg-12">
             <div id="A" class="col-lg-6">
-                <h2>Pattern</h2>
+                <h2>Patterns</h2>
             </div>
-
             <div id="B" class="col-lg-6">
-                <h2>To Discover</h2>
+                <h2>Draw any pattern</h2>
             </div>
         </div>
         <div class="col-lg-12">
-            <button type="button" class="btn btn-primary" onclick="clear('B');return;">Clear</button>
+            <h2 id="result"></h2>
         </div>
+        <div class="col-lg-12 text-center well buttons">
+            <button type="button" class="btn btn-lg btn-primary" onclick="prev()">Prev Pattern</button>
+            <button type="button" class="btn btn-lg btn-primary" onclick="next()">Next Pattern</button>
 
-
-
-
+            <button type="button" class="btn btn-lg btn-primary" onclick="run()">Run</button>
+            <button type="button" class="btn btn-lg btn-primary" onclick="clearTable()">Clear</button>
+        </div>
+    </div>
         <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
         <script src="hpnetwork.js"></script>
+        <script src="app.js"></script>
         <script>
-
-            function createTable(divID){
-                $('#'+divID).append('<table></table>');
-                var matrix = 15;
-                var table = $('#'+divID+" table");
-                for(var i = 0; i < matrix; i++){
-                    var tr = $("<tr>");
-                    $(tr).attr('data-i',i);
-                    for(var j = 0; j < matrix; j++){
-                        var td = $("<td>");
-                        $(td).attr('data-j',j+i*matrix);
-                        tr.append(td);
-                    }
-                    table.append(tr);
-                }
-
-                $("#"+divID+" table").on("click", "td", function() {
-                    var i = $( this ).parent().data("i");
-                    var j = $( this ).data("j");
-
-                    if($(this).hasClass('on')){
-                        $( this).removeClass('on');
-                    }else{
-                        $( this).addClass('on');
-                    }
-                    console.log("i "+i+" j"+j);
-                });
-            }
-            createTable("A");
-            createTable("B");
-
-            function clear(div){
-                $("#"+div+" table").remove();
-                createTable(div);
-            }
-
-            var down = false;
-
-            $(document).mousedown(function() {
-                down = true;
-            }).mouseup(function() {
-                down = false;
-            });
-
-            $("#A table td").mouseout(function() {
-                if(down) {
-                    $( this).addClass('on');
-//                    $(this).css("background-color", "pink");
-//                    console.log("down");
-                }
-                else {
-                    down = false;
-//                    console.log("up");
-                }
-            });
-
-            $("#B table td").mouseout(function() {
-                if(down) {
-                    $( this).addClass('on');
-//                    $(this).css("background-color", "pink");
-//                    console.log("down");
-                }
-                else {
-                    down = false;
-//                    console.log("up");
-                }
-            });
-
-
-            function drawPattern(div,pattern){
-                for(var i = 0; i < pattern.length; i++){
-                    var td = $("#"+div+' table [data-j='+i+']');
-                    if(pattern[i] > 0){
-                        $(td).addClass('on');
-                    }else{
-                        $(td).removeClass('on');
-                    }
-                }
-            }
-
-            function extractPattern(div){
-                var pattern = [];
-                var matrix = 15;
-                for(var i = 0; i < matrix*matrix; i++){
-                    pattern.push(0);
-                }
-                var bits = $("#"+div+" table .on");
-                for(var idx = 0; idx < bits.length; idx++){
-                    var j = $(bits[idx]).attr('data-j');
-                    pattern[$(bits[idx]).attr('data-j')] = 1;
-                }
-                return pattern;
-                console.log(JSON.stringify(pattern));
-            }
-
-            function run(){
-                var pattern = extractPattern('B');
-                check(pattern);
-            }
-
-//            var aPattern = [0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1];
-
+            initApp()
         </script>
 
     </body>
