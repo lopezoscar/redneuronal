@@ -6,6 +6,8 @@ var vectoresDeAprendizaje = [];
 var steps = [];
 
 function Network(){
+    var _this = this;
+    this.result = "";
 
     this.learn = function() {
 
@@ -142,18 +144,16 @@ function Network(){
             return false;
         }
 
+
         function check(vectorEntrada) {
             var anterior = vectorEntrada;
             steps.push(anterior);
 
             var nuevoVector = nuevaEntrada(anterior);
-            if (equals(anterior, nuevoVector)) {
-                //console.log(JSON.stringify(anterior));
-                //console.log(JSON.stringify(nuevoVector));
+            if (equals(anterior, nuevoVector)){
                 console.log("Termino el análisis!!");
-                var nombre = esUnVectorDeAprendizaje(nuevoVector);
-                console.log("NOMBRE check"+nombre);
-                return nombre;
+                _this.result = esUnVectorDeAprendizaje(nuevoVector);
+                //console.log("NOMBRE check"+nombre);
             } else {
                 nuevoVector = nuevaEntrada(anterior);
                 check(nuevoVector);
@@ -161,7 +161,6 @@ function Network(){
         }
 
         return check;
-
 //check([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0]);
 
 //var toDiscover = [0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1];
